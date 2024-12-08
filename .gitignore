@@ -1,0 +1,70 @@
+# Python
+*.py[cod]  # Fichiers compilés
+__pycache__/  # Cache des fichiers
+*.so  # Fichiers compilés Cython
+*.pyd  # Fichiers Windows DLL pour Python
+*.pyo  # Fichiers optimisés
+
+# Environnements virtuels
+venv/
+.env/
+.virtualenv/
+*.env
+*.env.*
+
+# Bibliothèques de dépendances
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Fichiers de logs
+*.log
+*.log.*
+
+# Configuration spécifique à VSCode
+.vscode/
+
+# Configuration spécifique à IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# OS et fichiers temporaires
+.DS_Store  # macOS
+Thumbs.db  # Windows
+desktop.ini  # Windows
+*.swp  # Vim
+*.swo  # Vim
+*.tmp  # Fichiers temporaires
+
+# Gestionnaires de paquets
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+*.wheel
+
+# Tests
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.cache/
+coverage.xml
+htmlcov/
+
+# Documentation
+_build/
+*.rst~
+
+# Autres outils spécifiques (optionnels, si utilisés dans le projet)
+.mypy_cache/  # mypy
+.pyre/  # pyre
+.pytype/  # pytype
+.ipynb_checkpoints  # Jupyter Notebook
+
+# Gestionnaires de conteneurs ou d'autres outils
+docker-compose.override.yml
+*.sqlite3
+*.db
