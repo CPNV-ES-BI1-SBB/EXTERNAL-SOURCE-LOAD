@@ -1,0 +1,60 @@
+@startuml
+
+class LoadController {
+    + api : FastAPI
+    + load(data : Dict[String, List]): Response
+}
+
+class JsonToObject {
+    - json_to_object(json_data: str): data
+    - recursive_convert(data): data
+}
+
+class ObjectToSQL {
+    - object_to_sql(obj): queries
+    - process_object(obj): []queries
+}
+
+abstract class BaseDBProvider {
+    + connect(self) : void
+    + disconnect(self) : void
+}
+
+class DBFactory {
+    - config : [String]
+    + create_connection(datawarehouse_type : String) : DBConnection
+}
+
+class AzureProvider extends BaseDBProvider {
+    + connect(credentials : String) : conn
+    + disconnect(self) : void
+}
+
+class BigQueryProvider extends BaseDBProvider {
+    + connect(credentials : String) : conn
+    + disconnect(self) : void
+}
+
+class RedshiftProvider extends BaseDBProvider {
+    + connect(credentials : String) : conn
+    + disconnect(self) : void
+}
+
+class SnowflakeProvider extends BaseDBProvider {
+    + connect(credentials : String) : conn
+    + disconnect(self) : void
+}
+
+class Config{
+    - load_dotenv(dotenv_path : String) : bool
+    + get_config() : [String, List]
+    }
+
+LoadController --> JsonToObject
+LoadController --> ObjectToSQL
+LoadController --> DBFactory
+Config <-right- DBFactory
+DBFactory <-down- BaseDBProvider
+
+
+@enduml
