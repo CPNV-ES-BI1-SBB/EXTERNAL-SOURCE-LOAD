@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 class DatabaseProvider(ABC):
     @abstractmethod
     def connect(self):
-        pass
+        raise InternalServerError("Database connection method not implemented")
 
     @abstractmethod
     def disconnect(self):
-        pass
+        raise InternalServerError("Database disconnection method not implemented")
