@@ -2,9 +2,11 @@
 
 ## Description
 
-
----
-
+This project is designer to load data from external source to a DataWarehouse and the main features are :
+- Expose an api route to get data from external source
+- Transform the data to Python Object
+- Transform Python Object to Sql normalized queries that can be loaded to a DataWarehouse
+- 
 ## Getting Started
 
 ### Prerequisites
@@ -17,7 +19,7 @@ List all dependencies and their version needed by the project as :
 
 ### Configuration
 
-Install requiremenets 
+Install requirements 
 ````bash
 pip install -r requirements.txt
 ````
@@ -31,7 +33,23 @@ cp .env.example .env
 
 ## Development environment
 
----
+Run the tests
+````bash
+pytest <name of the test file>
+````
+
+## Directory structure
+
+```shell
+.EXTERNAL-SOURCE-LOAD
+├── app                           // Classes and packages
+│   ├── helpers             // Helpers functions
+│   ├── providers           // Providers to connect to external source
+│   └── utils               // Utils functions
+├── docs
+│   └── diagram
+└── tests                         // Tests classes
+````
 
 ## Collaborate
 
@@ -65,7 +83,7 @@ examples :
 ```bash
 chore(git): Create .gitignore
 ````
-Complete synthaxe
+Complete syntax
 
 ```bash
 feat(handler class): Update class name
