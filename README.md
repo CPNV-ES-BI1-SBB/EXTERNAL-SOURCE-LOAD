@@ -18,18 +18,26 @@ List all dependencies and their version needed by the project as :
 * Git version 2.47 or later [official doc](https://git-scm.com/)
 
 ### Configuration
+Create a virtual env for Python
+````bash
+python -m venv .venv
+````
+Indicate to Jetbrains that .venv is your interpreter for this project
+````bash
+Settings | Project: EXTERNAL-SOURCE-LOAD | Python Interpreter
+````
+Now every commands will be interpreted by the .venv
 
 Install requirements 
 ````bash
 pip install -r requirements.txt
 ````
 
-Copy and modify the .env
+Copy and modify the .env.exemple
 ````bash
-cp .env.example .env
+cp .env.exemple .env
 ````
 
----
 
 ## Development environment
 
@@ -53,25 +61,19 @@ pytest <name of the test file>
 
 ## Collaborate
 
-* Workflow
-    * [Gitflow](https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow#:~:text=Gitflow%20est%20l'un%20des,les%20hotfix%20vers%20la%20production.)
-    * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
-    * [How to use your workflow](https://nvie.com/posts/a-successful-git-branching-model/)
-
-    * Propose a new feature in [Github issues](https://github.com/CPNV-ES-BI1-SBB/EXTERNAL-SOURCE-LOAD-DATALAKE/issues)
-    * Pull requests are open to merge in the develop branch.
-    * Release on the main branch we use GitFlow and not with GitHub release.
-    * Issues are added to the [github issues page](https://github.com/CPNV-ES-BI1-SBB/EXTERNAL-SOURCE-LOAD-DATALAKE/issues)
+   * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+   * Propose a new feature in [Github issues](https://github.com/CPNV-ES-BI1-SBB/EXTERNAL-SOURCE-LOAD/issues)
+   * Pull requests are open to merge in the develop branch.
+   * Issues are added to the [github issues page](https://github.com/CPNV-ES-BI1-SBB/EXTERNAL-SOURCE-LOAD/issues)
 
 ### Commits
-* [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
 ```bash
 <type>(<scope>): <subject>
 ```
 
 - **build**: Changes that affect the build system or external dependencies (e.g., npm, make, etc.).
 - **ci**: Changes related to integration or configuration files and scripts (e.g., Travis, Ansible, BrowserStack, etc.).
-- **feat**: Adding a new feature.
+- **feat/feature**: Adding a new feature.
 - **fix**: Bug fixes.
 - **perf**: Performance improvements.
 - **refactor**: Modifications that neither add a new feature nor improve performance.
@@ -83,20 +85,19 @@ examples :
 ```bash
 chore(git): Create .gitignore
 ````
-Complete syntax
+Complete syntax with scope, body and footer
 
 ```bash
 feat(handler class): Update class name
 <empty line>
+The class wasn't in line with the class diagram
+<empty line>
 LACK: Refactor test case with right name usage
 ````
-
----
+Both the body and footer are optional.
 
 ## License
 MIT
-
----
 
 ## Contact
 
