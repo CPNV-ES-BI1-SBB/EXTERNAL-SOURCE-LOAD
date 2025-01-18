@@ -1,60 +1,138 @@
 @startuml
 
-class LoadController {
-    + api : FastAPI
-    + load(data : Dict[String, List]): Response
+'
+' ==========================
+'  Fetcher des requêtes
+' ==========================
+interface RequestFetcher {
+    + fetchRequest(): str
 }
 
-class JsonToObject {
-    - json_to_object(json_data: str): data
-    - recursive_convert(data): data
+class HttpRequestFetcher implements RequestFetcher {
+    + fetchRequest(payload : str): str
 }
 
-class ObjectToSQL {
-    - object_to_sql(obj): queries
-    - process_object(obj): []queries
+'
+' ==========================
+'  Le Contrôleur
+' ==========================
+class LoadingController {
+ 		- requestFetcher: IRequestFetcher
+    - serializer: IJsonSerializer
+    - databaseClient: IDatabaseClient
+    + handleRequest(payload: str): str
 }
 
-abstract class BaseDBProvider {
-    + connect(self) : void
-    + disconnect(self) : void
+'
+' ==========================
+'  La Sérialisation (Pydantic)
+' ==========================
+interface JsonSerializer {
+    + serialize(jsonData: str)
 }
 
-class DBFactory {
-    - config : [String]
-    + create_connection(datawarehouse_type : String) : DBConnection
+class StationSerializer implements JsonSerializer {
+    + serialize(jsonData: str): Station
+    - parseRaw(jsonData: str): Station
 }
 
-class AzureProvider extends BaseDBProvider {
-    + connect(credentials : String) : conn
-    + disconnect(self) : void
+note bottom of StationSerializer
+  Utilise Pydantic pour désérialiser
+  le JSON en un objet Station
+  (avec ses Departures et Trains).
+end note
+
+'
+' ==========================
+'  Domain Objects (Pydantic)
+' ==========================
+interface BaseModel
+note left of BaseModel
+  Classe de base Pydantic
+end note
+
+class Station extends BaseModel {
+    - name: str
+    - departures: List<Departure>
 }
 
-class BigQueryProvider extends BaseDBProvider {
-    + connect(credentials : String) : conn
-    + disconnect(self) : void
+class Departure extends BaseModel {
+    - departureStationName: str
+    - destinationStationName: str
+    - viaStationName: Optional[str]
+    - departureTime: datetime
+    - platform: str
+    - sector: str
+    - trains: List<Train>
 }
 
-class RedshiftProvider extends BaseDBProvider {
-    + connect(credentials : String) : conn
-    + disconnect(self) : void
+class Train extends BaseModel {
+    - type: str
+    - number: str
 }
 
-class SnowflakeProvider extends BaseDBProvider {
-    + connect(credentials : String) : conn
-    + disconnect(self) : void
+'
+' ==========================
+'  Services et Persistance
+' ==========================
+
+interface DatabaseClient {
+		+ client()
+    + insert(): void
+    + update(): void
+    + exist(): bool
 }
 
-class Config{
-    - load_dotenv(dotenv_path : String) : bool
-    + get_config() : [String, List]
-    }
+class PostgresClient implements DatabaseClient {
+		+ postgresClient()
+    + insert(station: Station): void
+    + update(station: Station): void
+    + exist(name: str): bool
+}
 
-LoadController --> JsonToObject
-LoadController --> ObjectToSQL
-LoadController --> DBFactory
-Config <-right- DBFactory
-DBFactory <-down- BaseDBProvider
+class AWSSDK{}
+
+'
+' ==========================
+' Gestion des erreurs
+' ==========================
+
+interface Error {}
+
+class BadRequestError implements Error {
+		+ message: str
+}
+
+class ForbiddenError implements Error {
+		+ message: str
+}
+
+class HttpExeption implements Error{
+		+ message: str
+}
+
+class InternalServerError implements Error {
+		+ message: str
+}
+
+class NotFoundError implements Error {
+		+ message: str
+}
+
+class UnauthorizedError implements Error {
+		+ message: str
+}
+
+'
+' ==========================
+' Relations
+' ==========================
+LoadingController -right-* RequestFetcher
+LoadingController --* JsonSerializer
+LoadingController -left-* DatabaseClient
+StationSerializer -down-> Station
+PostgresClient -> AWSSDK
+LoadingController --.> Error
 
 
 @enduml
