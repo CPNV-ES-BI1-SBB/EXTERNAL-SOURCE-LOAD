@@ -25,7 +25,7 @@ class LoadingController {
 
 '
 ' ==========================
-'  La Sérialisation (Pydantic)
+'  La Sérialisation
 ' ==========================
 interface JsonSerializer {
     + serialize(jsonData: str)
@@ -44,7 +44,7 @@ end note
 
 '
 ' ==========================
-'  Domain Objects (Pydantic)
+'  Domain Objects
 ' ==========================
 interface BaseModel
 note left of BaseModel
