@@ -1,39 +1,17 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
+RDS_HOST = os.getenv("RDS_HOST")
+RDS_PORT = os.getenv("RDS_PORT")
+RDS_USER = os.getenv("RDS_USER")
+RDS_PASSWORD = os.getenv("RDS_PASSWORD")
+RDS_DBNAME = os.getenv("RDS_DBNAME")
 
-def get_config():
-    """Fetch database configurations from environment variables."""
-    return {
-        "redshift": {
-            "dbname": os.getenv("REDSHIFT_DBNAME"),
-            "user": os.getenv("REDSHIFT_USER"),
-            "password": os.getenv("REDSHIFT_PASSWORD"),
-            "host": os.getenv("REDSHIFT_HOST"),
-            "port": os.getenv("REDSHIFT_PORT"),
-        },
-        "synapse": {
-            "driver": os.getenv("SYNAPSE_DRIVER"),
-            "server": os.getenv("SYNAPSE_SERVER"),
-            "database": os.getenv("SYNAPSE_DATABASE"),
-            "uid": os.getenv("SYNAPSE_UID"),
-            "pwd": os.getenv("SYNAPSE_PWD"),
-        },
-        "snowflake": {
-            "account": os.getenv("SNOWFLAKE_ACCOUNT"),
-            "user": os.getenv("SNOWFLAKE_USER"),
-            "password": os.getenv("SNOWFLAKE_PASSWORD"),
-            "warehouse": os.getenv("SNOWFLAKE_WAREHOUSE"),
-            "database": os.getenv("SNOWFLAKE_DATABASE"),
-            "schema": os.getenv("SNOWFLAKE_SCHEMA"),
-        },
-        "bigquery": {
-            "project": os.getenv("BIGQUERY_PROJECT"),
-            "keyfile": os.getenv("BIGQUERY_KEYFILE"),
-            "dataset": os.getenv("BIGQUERY_DATASET"),
-            "table": os.getenv("BIGQUERY_TABLE"),
-        },
 
-    }
+DATABASE_URL = f"postgresql://{RDS_USER}:{RDS_PASSWORD}@{RDS_HOST}:{RDS_PORT}/{RDS_DBNAME}"
+
+# Raise an error if one of the RDS environment variables is not defined
+if not all([RDS_HOST, RDS_PORT, RDS_USER, RDS_PASSWORD, RDS_DBNAME]):
+    raise ValueError("Les variables d'environnement RDS ne sont pas toutes définies !")
