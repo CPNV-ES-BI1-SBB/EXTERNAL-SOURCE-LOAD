@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
 
-class RequestFetcher(ABC):
+class IRequestFetcher(ABC):
     """
     Interface to fetch request from the given url
     """
     @abstractmethod
-    def fetchRequest(self, payload: str) -> str:
+    def fetchRequest(self, url: str) -> str:
         pass
