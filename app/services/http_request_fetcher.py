@@ -1,19 +1,19 @@
 import requests
 
-from app.services.request_fetcher import RequestFetcher
+from app.services.request_fetcher import IRequestFetcher
 
 
-class HttpRequestFetcher(RequestFetcher):
+class HttpRequestFetcher(IRequestFetcher):
     """
     Implementation of RequestFetcher interface to fetch request from the given url
     """
-    def fetchRequest(self, payload: str) -> str:
+    def fetchRequest(self, url: str) -> str:
         """
-        'payload' = URL to fetch.
+        'url' = URL to fetch.
         return content (str).
         """
         try:
-            response = requests.get(payload, timeout=10)
+            response = requests.get(url, timeout=10)
             response.raise_for_status()
             return response.text
         except requests.RequestException as exc:
