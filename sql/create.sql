@@ -10,7 +10,6 @@ CREATE TABLE stations (
 CREATE TABLE departures (
     id SERIAL PRIMARY KEY,
     station_id INT NOT NULL REFERENCES stations(id),
-    departure_station_name TEXT NOT NULL,
     destination_station_name TEXT NOT NULL,
     departure_time TIMESTAMP NOT NULL,
     platform TEXT,
