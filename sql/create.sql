@@ -21,5 +21,5 @@ CREATE TABLE trains (
     id SERIAL PRIMARY KEY,
     departure_id INT NOT NULL REFERENCES departures(id),
     train_type TEXT,    -- match to 'g" in cff api
-    train_number TEXT   -- match to  "l" in cff api
+    train_line TEXT   -- match to  "l" in cff api
 );
