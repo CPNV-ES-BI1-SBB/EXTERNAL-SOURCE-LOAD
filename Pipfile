@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = false
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+requests = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
+pytest = "*"
+pytest-bdd = "*"
+pydantic = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
