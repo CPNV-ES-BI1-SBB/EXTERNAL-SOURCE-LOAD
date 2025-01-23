@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 from app.models.train import Train
@@ -10,5 +10,5 @@ class Departure(BaseModel):
     viaStationNames: List[str]
     departureTime: int
     train: Train
-    platform: str
+    platform: Optional[str]
     sector: str
