@@ -1,32 +1,19 @@
 import psycopg2
-from .cloud_provider import IDatabaseClient
-from app.models.station import Station
-from app.providers.sql_builder import build_sql_statements_for_station
+from contextlib import contextmanager
+
+from psycopg2.extras import RealDictCursor
+
+from app.utils import config
+from app.errors.custom_errors import DataBaseError
 
 
-class RdsClient(IDatabaseClient):
-    def __init__(self, connection_string: str):
-        self.connection_string = connection_string
+@contextmanager
+def amazonRDSCon():
 
-    def insert_data(station: "Station", connection_string: str):
-        """
-        Insert a station, its departures, and associated trains into the database.
-        """
-
-        statements = build_sql_statements_for_station(station)
-
-        conn = psycopg2.connect(connection_string)
-        cur = conn.cursor()
-
-        try:
-            for query, params in statements:
-                cur.execute(query, params)
-
-            conn.commit()
-        except Exception as e:
-            conn.rollback()
-            raise
-        finally:
-            cur.close()
-            conn.close()
-
+    conn = psycopg2.connect(config.DATABASE_URL, cursor_factory=RealDictCursor)
+    if conn is None:
+        raise DataBaseError("Could not connect to the database")
+    try:
+        yield conn
+    finally:
+        conn.close()
