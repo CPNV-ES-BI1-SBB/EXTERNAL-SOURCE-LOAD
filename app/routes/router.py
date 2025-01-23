@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from app.routes import process_load
+from app.routes import jobs
 
 api_router = APIRouter()
 
-api_router.include_router(process_load.router, prefix="/load", tags=["ELT Load Operations"])
+api_router.include_router(jobs.router, prefix="/job", tags=["ELT Load Operations"])
