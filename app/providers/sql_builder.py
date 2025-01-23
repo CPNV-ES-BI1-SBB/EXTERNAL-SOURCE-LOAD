@@ -24,9 +24,7 @@ def count_trains(obj: BaseModel) -> int:
 
 def insert_station(conn: amazonRDSCon(), station: Station) -> int:
     cursor = conn.cursor()
-    print(station)
     sql = "INSERT INTO stations (name, long, lat) VALUES (%s, %s, %s) RETURNING id"
-    print({"name": station.name, "long": station.long, "lat": station.lat})
     cursor.execute(sql, (station.name, station.long, station.lat))
     station_id = cursor.fetchone()["id"]
     return station_id
@@ -68,7 +66,6 @@ def insert_train(conn: amazonRDSCon(), train: Train, departure_id: int) -> Optio
     cursor = conn.cursor()
     sql = "INSERT INTO trains (departure_id, type, line) VALUES (%s, %s, %s) RETURNING id"
 
-    print({"departure_id": departure_id, "type": train.type, "line": train.line})
 
     cursor.execute(sql, (departure_id, train.type, train.line))
     train_id = cursor.fetchone()["id"]
@@ -80,15 +77,11 @@ def insert_object(conn: amazonRDSCon(), obj: BaseModel, parent_id: Optional[int]
     try:
         if isinstance(obj, Station):
             station_id = insert_station(conn, obj)
-            print(f"Inserted Station : {obj.name} : {station_id}")
 
             for dep in obj.departures:
                 departure_id = insert_departure(conn, dep, station_id)
-                print(f"Inserted Departure for : {obj.name}, with id :{departure_id}, for station :{station_id}")
                 if dep.train:
-                    print(dep.train)
                     insert_train(conn, dep.train, departure_id)
-                    print(f"Inserted Train: {obj.name}, with id :{departure_id}, for station :{station_id}")
             return station_id
 
         elif isinstance(obj, Departure):
