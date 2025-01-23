@@ -11,4 +11,4 @@ class Departure(BaseModel):
     departureTime: int
     train: Train
     platform: Optional[str]
-    sector: str
+    sector: Optional[str]
