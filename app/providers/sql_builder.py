@@ -89,7 +89,7 @@ def insert_object(conn: amazonRDSCon(), obj: BaseModel, parent_id: Optional[int]
                     print(dep.train)
                     insert_train(conn, dep.train, departure_id)
                     print(f"Inserted Train: {obj.name}, with id :{departure_id}, for station :{station_id}")
-                return station_id
+            return station_id
 
         elif isinstance(obj, Departure):
             if parent_id is None:
