@@ -5,15 +5,14 @@ name = "pypi"
 
 [packages]
 fastapi = "*"
-uvicorn = "*"
 requests = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
-pytest = "*"
-pytest-bdd = "*"
 pydantic = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-bdd = "*"
 
 [requires]
 python_version = "3.13"
