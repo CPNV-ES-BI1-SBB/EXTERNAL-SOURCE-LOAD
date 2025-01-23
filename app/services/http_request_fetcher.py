@@ -1,20 +1,17 @@
 import requests
+from app.errors.custom_errors import InvalidUrl, NotFoundError
 
-from app.services.request_fetcher import IRequestFetcher
 
-
-class HttpRequestFetcher(IRequestFetcher):
+def fetchRequest(url: str) -> str:
     """
-    Implementation of RequestFetcher interface to fetch request from the given url
+    'url' = URL to fetch.
+    return content (str).
     """
-    def fetchRequest(self, url: str) -> str:
-        """
-        'url' = URL to fetch.
-        return content (str).
-        """
-        try:
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
-            return response.text
-        except requests.RequestException as exc:
-            raise RuntimeError(f"HTTP fetch error: {exc}")
+    if not url:
+        raise InvalidUrl("URL is required.")
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except NotFoundError("Data not found.") as e:
+        raise e
