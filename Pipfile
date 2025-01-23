@@ -4,7 +4,7 @@ verify_ssl = false
 name = "pypi"
 
 [packages]
-fastapi = "*"
+fastapi = {extras = ["standard"], version = "*"}
 requests = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
