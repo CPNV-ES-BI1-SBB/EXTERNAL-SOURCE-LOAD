@@ -1,8 +1,6 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from datetime import datetime
+from pydantic import BaseModel
 
 
 class Train(BaseModel):
-    type: str = Field(alias="g")
-    number: str = Field(alias="l")
+    type: str
+    line: str

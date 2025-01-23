@@ -1,15 +1,14 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from datetime import datetime
+from pydantic import BaseModel
+from typing import List
+
 
 from app.models.train import Train
 
 
 class Departure(BaseModel):
-    departureStationName: str
     destinationStationName: str
     viaStationNames: List[str]
-    departureTime: datetime
+    departureTime: int
     train: Train
     platform: str
-    sector: Optional[str] = None
+    sector: str

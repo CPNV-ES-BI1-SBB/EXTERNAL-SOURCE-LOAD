@@ -1,12 +1,11 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from datetime import datetime
+from pydantic import BaseModel
+from typing import List
 
 from app.models.departure import Departure
 
 
 class Station(BaseModel):
     name: str
-    departures: List[Departure]
     long: float
     lat: float
+    departures: List[Departure]
