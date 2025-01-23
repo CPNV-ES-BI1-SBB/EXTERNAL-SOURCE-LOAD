@@ -10,8 +10,8 @@ CREATE TABLE stations (
 CREATE TABLE departures (
     id SERIAL PRIMARY KEY,
     station_id INT NOT NULL REFERENCES stations(id),
-    departure_station_name TEXT NOT NULL,
     destination_station_name TEXT NOT NULL,
+    via_station_names TEXT,
     departure_time TIMESTAMP NOT NULL,
     platform TEXT,
     sector TEXT
@@ -21,6 +21,7 @@ CREATE TABLE departures (
 CREATE TABLE trains (
     id SERIAL PRIMARY KEY,
     departure_id INT NOT NULL REFERENCES departures(id),
-    train_type TEXT,    -- match to 'g" in cff api
-    train_number TEXT   -- match to  "l" in cff api
+    type VARCHAR(10),    -- match to 'g" in cff api
+    line VARCHAR(10)   -- match to  "l" in cff api
 );
+

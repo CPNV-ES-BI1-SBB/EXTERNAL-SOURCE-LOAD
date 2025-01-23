@@ -1,0 +1,14 @@
+from pydantic import BaseModel
+from typing import List, Optional
+
+
+from app.models.train import Train
+
+
+class Departure(BaseModel):
+    destinationStationName: str
+    viaStationNames: List[str]
+    departureTime: int
+    train: Train
+    platform: Optional[str]
+    sector: Optional[str]
