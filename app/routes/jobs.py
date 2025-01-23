@@ -25,7 +25,7 @@ def process(request: JobRequest):
             try:
                 for obj in data:
                     insert_object(provider, obj)
-                    provider.commit()
+                provider.commit()
             except Exception as e:
                 provider.rollback()
                 return {"status": "error", "message": str(e)}
