@@ -15,22 +15,20 @@ List all dependencies and their version needed by the project as :
 
 * IDE used pycharm 2024.3 or later [download](https://www.jetbrains.com/pycharm/download/?section=windows)
 * Python 3.13 [official doc](https://www.python.org/downloads/)
+* Pipenv version 2024.4.1 [official doc](https://pipenv.pypa.io/en/latest/)
 * Git version 2.47 or later [official doc](https://git-scm.com/)
 
 ### Configuration
-Create a virtual env for Python
-````bash
-python -m venv .venv
-````
-Indicate to Jetbrains that .venv is your interpreter for this project
+
+Indicate to Jetbrains your python interpreter for this project
 ````bash
 Settings | Project: EXTERNAL-SOURCE-LOAD | Python Interpreter
 ````
-Now every commands will be interpreted by the .venv
 
 Install requirements 
 ````bash
-pip install -r requirements.txt
+pipenv shell
+pipenv install
 ````
 
 Copy and modify the .env.exemple
@@ -38,14 +36,14 @@ Copy and modify the .env.exemple
 cp .env.exemple .env
 ````
 
-
-## Development environment
-
 Run the tests
 ````bash
 pytest <name of the test file>
 ````
-
+Run the service
+````bash
+fastapi run
+````
 ## Directory structure
 
 ```shell
