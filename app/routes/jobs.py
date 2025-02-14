@@ -31,5 +31,6 @@ def process(request: JobRequest):
                 return {"status": "error", "message": str(e)}
 
         return {"status": "success", "message": "Data processed and inserted successfully."}
+    # TODO NGY check fast api doc
     except Exception as e:
         return {"status": "error", "message": str(e)}

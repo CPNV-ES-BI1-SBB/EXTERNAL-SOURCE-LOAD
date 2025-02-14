@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-
+'TODO NGY Use standard exception error as parent'
 class ErrorInterface(ABC):
     """Interface pour les classes d'erreur personnalisées."""
 
